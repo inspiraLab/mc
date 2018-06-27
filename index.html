@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Mapa conductual - Tecnostend</title>  <!-- /Cambiar título de la página para el navegador -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+    <script type='text/javascript' src='js/jquery.min.js'></script>
+    <script type='text/javascript' src='js/tabletop1.3.4.js'></script>
+    <script type='text/javascript' src='js/sheetsee.js'></script>
+	<link rel='stylesheet' type='text/css' href='bt/css/bootstrap.css'>	
+	<link rel="shortcut icon" href="favicon.ico" type="image/icon" />	
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+  	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700,900" rel="stylesheet">	
+	<link rel='stylesheet' type='text/css' href='estilos.css?=v1'>	 
+</head>
+<body>
+<div class="container" id="todito">
+	<div class="row bloqueo" style="margin-top:0px;">
+
+		<div class="col-md-5">
+			<div class="row">
+				<h2 class="pull-right" style="margin-right:10px;color:darkgray;">
+					<img src="img/inhiben.png">
+					INHIBIDORES									
+				</h2>
+			</div>
+		</div> 
+
+		<div class="col-md-2" style="border-left: 1px solid #CCC;border-right: 1px solid #CCC;">
+			<h2 style="color:#888786;">Categorías</h2>		
+		</div> 
+
+		<div class="col-md-5">
+			<div class="row">
+				<h2 class="pull-left" style="margin-left:10px;color:darkgray;">
+					MOTIVADORES
+					<img src="img/motivan.png">																		
+				</h2>
+			</div>
+		</div>	
+	</div>	
+
+	<div id="fullTable"></div>
+    	<script id="fullTable_template" type="text/html"> <!-- Mustache template -->
+        	<table width="98%">	
+			<!-- GENERAL -->	
+			<div class="row">										
+				<div class="col-md-12">				
+					<div class="row productossector">
+
+					<!-- Inicio Combustión -->		
+		            <div class="row bloqueo">		                  
+						<div class="col-md-5">	
+							<div class="row">
+							{{#rows}}{{#inh}}{{#canamo}}
+								<a href="#{{id}}" class="uninh inh{{relevancia}} pull-right" data-toggle="modal" data-target="#{{id}}">{{titulo}}</a>							
+								<!-- Modal -->
+								<div class="modal fade" id="{{id}}" role="dialog">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header inh{{relevancia}}">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h6 class="momenteo">{{motivador-inhibidor}} / {{categoria}}</h6>
+											</div>
+											<div class="modal-body">
+												<h4 class="modal-title">{{titulo}}<span style="margin-left:10px;"><img src="img/relevancia/{{relevancia}}.png"></span>
+												</h4>															
+												<p>{{descripcion}}</p>
+												{{#verbatim1}}
+													<div class="testimonios">
+														<h5><b>Testimonios</b></h5>
+														<div class="verbatim verbinh{{relevancia}}">
+														{{verbatim1}}
+															<br>
+															{{#fuente1}}<small><cite class="citafuente">{{fuente1}}</cite></small>{{/fuente1}}
+														</div>
+
+														{{#verbatim2}}
+														<div class="verbatim verbinh{{relevancia}}">
+															{{verbatim2}}
+															<br>
+															{{#fuente2}}<small><cite class="citafuente">{{fuente2}}</cite></small>{{/fuente2}}
+														</div>
+														{{/verbatim2}}
+
+														{{#verbatim3}}
+														<div class="verbatim verbinh{{relevancia}}">
+															{{verbatim3}}
+															<br>
+															{{#fuente3}}<small><cite class="citafuente">{{fuente3}}</cite></small>{{/fuente3}}
+														</div>
+														{{/verbatim3}}
+
+														{{#verbatim4}}
+														<div class="verbatim verbinh{{relevancia}}">
+															{{verbatim4}}
+															<br>
+															{{#fuente4}}<small><cite class="citafuente">{{fuente4}}</cite></small>{{/fuente4}}
+														</div>
+														{{/verbatim4}}
+													</div>
+													{{/verbatim1}}
+											</div>
+										</div>
+									</div>
+								</div>															
+								{{/canamo}}{{/inh}}{{/rows}}
+							</div>	
+						</div>
+
+						<div class="col-md-2">
+							<h3 class="iconmomento imgpropuesta">Canal Moderno</h3>
+						</div>
+								
+						<div class="col-md-5">	
+							<div class="row">
+								{{#rows}}{{#mot}}{{#canamo}}
+								<a href="#{{id}}" class="unmot mot{{relevancia}} pull-left" data-toggle="modal" data-target="#{{id}}">{{titulo}}</a>						
+								<!-- Modal -->
+								<div class="modal fade" id="{{id}}" role="dialog">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header mot{{relevancia}}">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h6 class="momenteo">{{motivador-inhibidor}} / {{categoria}}</h6>
+											</div>
+											<div class="modal-body">
+												<h4 class="modal-title">{{titulo}}<span style="margin-left:10px;"><img src="img/relevancia/{{relevancia}}.png"></span>
+												</h4>															
+												<p>{{descripcion}}</p>
+												{{#verbatim1}}
+													<div class="testimonios">
+														<h5><b>Testimonios</b></h5>
+														<div class="verbatim verbmot{{relevancia}}">
+														{{verbatim1}}
+															<br>
+															{{#fuente1}}<small><cite class="citafuente">{{fuente1}}</cite></small>{{/fuente1}}
+														</div>
+
+														{{#verbatim2}}
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim2}}
+															<br>
+															{{#fuente2}}<small><cite class="citafuente">{{fuente2}}</cite></small>{{/fuente2}}
+														</div>
+														{{/verbatim2}}
+
+														{{#verbatim3}}
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim3}}
+															<br>
+															{{#fuente3}}<small><cite class="citafuente">{{fuente3}}</cite></small>{{/fuente3}}
+														</div>
+														{{/verbatim3}}
+
+														{{#verbatim4}}
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim4}}
+															<br>
+															{{#fuente4}}<small><cite class="citafuente">{{fuente4}}</cite></small>{{/fuente4}}
+														</div>
+														{{/verbatim4}}
+													</div>
+													{{/verbatim1}}
+											</div>
+										</div>
+									</div>
+								</div>													
+								{{/canamo}}{{/mot}}{{/rows}}	
+							</div>	
+						</div>	
+					</div>
+					<!-- Fin motos combustión -->		
+
+														
+								
+						<!-- Inicio momento electrica -->		
+			            <div class="row bloqueo">
+							<div class="col-md-5">	
+								<div class="row">								
+								{{#rows}}{{#inh}}{{#catra}}
+									<a href="#{{id}}" class="uninh inh{{relevancia}} pull-right" data-toggle="modal" data-target="#{{id}}">{{titulo}}</a>						
+									<!-- Modal -->
+									<div class="modal fade" id="{{id}}" role="dialog">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header inh{{relevancia}}">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h6 class="momenteo">{{motivador-inhibidor}} / {{categoria}}</h6>
+												</div>
+												<div class="modal-body">
+													<h4 class="modal-title">{{titulo}}<span style="margin-left:10px;"><img src="img/relevancia/{{relevancia}}.png"></span>
+													</h4>															
+													<p>{{descripcion}}</p>
+													{{#verbatim1}}
+													<div class="testimonios">
+														<h5><b>Testimonios</b></h5>
+														<div class="verbatim verbinh{{relevancia}}">
+														{{verbatim1}}
+															<br>
+															{{#fuente1}}<small><cite class="citafuente">{{fuente1}}</cite></small>{{/fuente1}}
+														</div>
+
+														{{#verbatim2}}
+														<div class="verbatim verbinh{{relevancia}}">
+															{{verbatim2}}
+															<br>
+															{{#fuente2}}<small><cite class="citafuente">{{fuente2}}</cite></small>{{/fuente2}}
+														</div>
+														{{/verbatim2}}
+
+														{{#verbatim3}}
+														<div class="verbatimverbinh{{relevancia}}">
+															{{verbatim3}}
+															<br>
+															{{#fuente3}}<small><cite class="citafuente">{{fuente3}}</cite></small>{{/fuente3}}
+														</div>
+														{{/verbatim3}}
+
+														{{#verbatim4}}
+														<div class="verbatim verbinh{{relevancia}}">
+															{{verbatim4}}
+															<br>
+															{{#fuente4}}<small><cite class="citafuente">{{fuente4}}</cite></small>{{/fuente4}}
+														</div>
+														{{/verbatim4}}
+													</div>
+													{{/verbatim1}}
+												</div>
+											</div>
+										</div>
+									</div>															
+									{{/catra}}{{/inh}}{{/rows}}
+									</div>	
+								</div>
+
+							<div class="col-md-2">
+								<h3 class="iconmomento imgpropuesta">Canal Tradicional</h3>
+							</div>
+										
+								<div class="col-md-5">	
+									<div class="row">
+										{{#rows}}{{#mot}}{{#catra}}
+										<a href="#{{id}}" class="unmot mot{{relevancia}} pull-left" data-toggle="modal" data-target="#{{id}}">{{titulo}}</a>						
+										<!-- Modal -->
+										<div class="modal fade" id="{{id}}" role="dialog">
+											<div class="modal-dialog modal-lg">
+												<div class="modal-content">
+													<div class="modal-header mot{{relevancia}}">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h6 class="momenteo">{{oportunidad-barrera}} / {{categoria}}</h6>
+													</div>
+													<div class="modal-body">
+														<h4 class="modal-title">{{titulo}}<span style="margin-left:10px;"><img src="img/relevancia/{{relevancia}}.png"></span>
+														</h4>															
+														<p>{{descripcion}}</p>
+														{{#verbatim1}}
+													<div class="testimonios">
+														<h5><b>Testimonios</b></h5>
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim1}}
+															<br>
+															{{#fuente1}}<small><cite class="citafuente">{{fuente1}}</cite></small>{{/fuente1}}
+														</div>
+
+														{{#verbatim2}}
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim2}}
+															<br>
+															{{#fuente2}}<small><cite class="citafuente">{{fuente2}}</cite></small>{{/fuente2}}
+														</div>
+														{{/verbatim2}}
+
+														{{#verbatim3}}
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim3}}
+															<br>
+															{{#fuente3}}<small><cite class="citafuente">{{fuente3}}</cite></small>{{/fuente3}}
+														</div>
+														{{/verbatim3}}
+
+														{{#verbatim4}}
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim4}}
+															<br>
+															{{#fuente4}}<small><cite class="citafuente">{{fuente4}}</cite></small>{{/fuente4}}
+														</div>
+														{{/verbatim4}}
+													</div>
+													{{/verbatim1}}
+													</div>
+												</div>
+											</div>
+										</div>														
+										{{/catra}}{{/mot}}{{/rows}}	
+									</div>	
+								</div>	
+							</div>
+						<!-- Fin de electrica -->			
+
+					<!-- Inicio momento electrica -->		
+			            <div class="row bloqueo">
+							<div class="col-md-5">	
+								<div class="row">								
+								{{#rows}}{{#inh}}{{#caem}}
+									<a href="#{{id}}" class="uninh inh{{relevancia}} pull-right" data-toggle="modal" data-target="#{{id}}">{{titulo}}</a>						
+									<!-- Modal -->
+									<div class="modal fade" id="{{id}}" role="dialog">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header inh{{relevancia}}">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h6 class="momenteo">{{motivador-inhibidor}} / {{categoria}}</h6>
+												</div>
+												<div class="modal-body">
+													<h4 class="modal-title">{{titulo}}<span style="margin-left:10px;"><img src="img/relevancia/{{relevancia}}.png"></span>
+													</h4>															
+													<p>{{descripcion}}</p>
+													{{#verbatim1}}
+													<div class="testimonios">
+														<h5><b>Testimonios</b></h5>
+														<div class="verbatim verbinh{{relevancia}}">
+														{{verbatim1}}
+															<br>
+															{{#fuente1}}<small><cite class="citafuente">{{fuente1}}</cite></small>{{/fuente1}}
+														</div>
+
+														{{#verbatim2}}
+														<div class="verbatim verbinh{{relevancia}}">
+															{{verbatim2}}
+															<br>
+															{{#fuente2}}<small><cite class="citafuente">{{fuente2}}</cite></small>{{/fuente2}}
+														</div>
+														{{/verbatim2}}
+
+														{{#verbatim3}}
+														<div class="verbatimverbinh{{relevancia}}">
+															{{verbatim3}}
+															<br>
+															{{#fuente3}}<small><cite class="citafuente">{{fuente3}}</cite></small>{{/fuente3}}
+														</div>
+														{{/verbatim3}}
+
+														{{#verbatim4}}
+														<div class="verbatim verbinh{{relevancia}}">
+															{{verbatim4}}
+															<br>
+															{{#fuente4}}<small><cite class="citafuente">{{fuente4}}</cite></small>{{/fuente4}}
+														</div>
+														{{/verbatim4}}
+													</div>
+													{{/verbatim1}}
+												</div>
+											</div>
+										</div>
+									</div>															
+									{{/caem}}{{/inh}}{{/rows}}
+									</div>	
+								</div>
+
+							<div class="col-md-2">
+								<h3 class="iconmomento imgpropuesta">Canal Empresarial</h3>
+							</div>
+										
+								<div class="col-md-5">	
+									<div class="row">
+										{{#rows}}{{#mot}}{{#caem}}
+										<a href="#{{id}}" class="unmot mot{{relevancia}} pull-left" data-toggle="modal" data-target="#{{id}}">{{titulo}}</a>						
+										<!-- Modal -->
+										<div class="modal fade" id="{{id}}" role="dialog">
+											<div class="modal-dialog modal-lg">
+												<div class="modal-content">
+													<div class="modal-header mot{{relevancia}}">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h6 class="momenteo">{{oportunidad-barrera}} / {{categoria}}</h6>
+													</div>
+													<div class="modal-body">
+														<h4 class="modal-title">{{titulo}}<span style="margin-left:10px;"><img src="img/relevancia/{{relevancia}}.png"></span>
+														</h4>															
+														<p>{{descripcion}}</p>
+														{{#verbatim1}}
+													<div class="testimonios">
+														<h5><b>Testimonios</b></h5>
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim1}}
+															<br>
+															{{#fuente1}}<small><cite class="citafuente">{{fuente1}}</cite></small>{{/fuente1}}
+														</div>
+
+														{{#verbatim2}}
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim2}}
+															<br>
+															{{#fuente2}}<small><cite class="citafuente">{{fuente2}}</cite></small>{{/fuente2}}
+														</div>
+														{{/verbatim2}}
+
+														{{#verbatim3}}
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim3}}
+															<br>
+															{{#fuente3}}<small><cite class="citafuente">{{fuente3}}</cite></small>{{/fuente3}}
+														</div>
+														{{/verbatim3}}
+
+														{{#verbatim4}}
+														<div class="verbatim verbmot{{relevancia}}">
+															{{verbatim4}}
+															<br>
+															{{#fuente4}}<small><cite class="citafuente">{{fuente4}}</cite></small>{{/fuente4}}
+														</div>
+														{{/verbatim4}}
+													</div>
+													{{/verbatim1}}
+													</div>
+												</div>
+											</div>
+										</div>														
+										{{/caem}}{{/mot}}{{/rows}}	
+									</div>	
+								</div>	
+							</div>
+						<!-- Fin de electrica -->															
+										
+				</div>								
+			</div>
+			<!-- TERMINA EL CONTENEDOR DE COLUMNAS -->									
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<a href="http://inspiralab.net/" style="border:1px solid transparent;"><img src="img/credito.png" style="float:right;padding-top: 65px;"></a>
+			</div>
+		</div>
+		</table>
+    </script>	 <!-- Termina mustache template -->
+	
+
+
+                    <script type="text/javascript">
+                     document.addEventListener('DOMContentLoaded', function() {
+                         var URL = "1G6V0qDGXcVmCv55X6egc8Vcr4OV54Fxmoj2bXBDiqpY";
+
+                         Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true, wanted: ['canalesAutecoDummy'] } )
+
+                         function showInfo(data, tableTop) {
+                             console.log(tableTop);
+                             var tableOptions = {"data": data
+                                               , "pagination": 700, "tableDiv": "#fullTable", "filterDiv": "#fullTableFilter"}
+                             Sheetsee.makeTable(tableOptions)
+                             Sheetsee.initiateTableFilter(tableOptions)
+
+                             california = Sheetsee.getKeyword(data, "CALIFORNIA");
+                             console.log("CALIFORNIA",data);
+                             var calOptions = { "data": data,
+                                                "pagination": 5,
+                                                "tableDiv": "#calTable",
+                                                "filterDiv": "#calFilter"
+                             }
+                             Sheetsee.makeTable(calOptions)
+                             Sheetsee.initiateTableFilter(calOptions)
+
+                             var html = Sheetsee.ich.photogrid({'rows': data})
+                             $('#photogrid').html(html)
+                         }
+                     })
+
+
+
+                    </script>
+
+                </div>
+
+
+            </div>
+
+
+
+        </div> <!-- /Termina el contenido -->	
+    </body>
+</html>
